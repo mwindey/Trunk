@@ -1,0 +1,14 @@
+﻿@model Definco.Models.ContactModel
+@using (Html.BeginForm("DirectMail", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "padding-top:10px;" }))
+{   
+    <fieldset>
+        @Html.LabelFor(m => m.Vraag)
+        @Html.TextAreaFor(m => m.Vraag, 3, 45, new { onfocus = "this.value='';", style = "font-family: 'Segoe UI',Verdana,Helvetica,Sans-Serif; font-size: 1.2em;" })
+        @Html.ValidationMessageFor(m => m.Vraag)
+        <br />
+        @Html.LabelFor(m => m.ContactMiddel)
+        @Html.TextBoxFor(m => m.ContactMiddel, new { onfocus = "this.value='';" })
+        @Html.ValidationMessageFor(m => m.ContactMiddel)
+        <input type="submit" value="Verstuur" title="Klik hier om te versturen" />
+    </fieldset>
+}

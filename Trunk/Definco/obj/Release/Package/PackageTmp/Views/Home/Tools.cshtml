@@ -1,0 +1,87 @@
+﻿@model Definco.Models.APRmodel
+@if (Request.IsAuthenticated) {
+    <fieldset>
+        <legend>Bereken uw maandelijke aflossing</legend>
+        @using (Html.BeginForm("CalculateAPR", "Home",FormMethod.Post)){
+            @Html.AntiForgeryToken()
+            <ol style="list-style-type: none;">
+                <li>
+                    @Html.LabelFor(m => m.Principal)
+                    @Html.TextBoxFor(m => m.Principal)
+                    @Html.ValidationMessageFor(m => m.Principal)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.InterestPerc)
+                    @Html.TextBoxFor(m => m.InterestPerc)
+                    @Html.ValidationMessageFor(m => m.InterestPerc)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Years)
+                    @Html.TextBoxFor(m => m.Years)
+                    @Html.ValidationMessageFor(m => m.Years)
+                </li>
+            </ol>
+            <input type="submit" value="Bereken" />
+
+    }
+        @if(Model.IsCalculated){
+            @:Resultaten berekening:
+            <ol style="list-style-type: none;">
+                <li>
+                    @Html.LabelFor(m => m.MonthlyPay)
+                    @Html.DisplayFor(m => m.MonthlyPay)
+                    @Html.ValidationMessageFor(m => m.MonthlyPay)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.MonthsToPay)
+                    @Html.DisplayFor(m => m.MonthsToPay)
+                    @Html.ValidationMessageFor(m => m.MonthsToPay)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.TotalPay)
+                    @Html.DisplayFor(m => m.TotalPay)
+                    @Html.ValidationMessageFor(m => m.TotalPay)
+                </li>
+            </ol>
+    }
+    </fieldset>
+    <br />
+    <br />
+}
+<fieldset>
+    <legend>Externe tools</legend>
+    <p>
+        @*  <a href="http://www.immotheker.be/Immotheker3/Modules/Default.aspx?WPID=237&L=N&Partner=EA" target="_blank" style="margin: 0px; padding: 0px;">Bereken je concreet project (via Immotheker.be)</a>
+        <br />
+        Als je een aankoop overweegt, is het interessant om het volledige project even op een rijtje te zetten. Over hoeveel eigen middelen beschik je en hoeveel wens en kan je per maand aan je lening spenderen? Welke kosten gaan gepaard met je aankoop en hoeveel dien je dus effectief te lenen? Welke leenformules zijn voor jou veilig?
+        <br />
+        <br />
+        <a href="http://www.immotheker.be/Immotheker3/Modules/Default.aspx?WPID=240&L=N&Partner=EA" target="_blank" style="margin: 0px; padding: 0px;">Bereken je leencapaciteit (via Immotheker.be)</a>
+        <br />
+        Ga na hoeveel je maximaal kan lenen. Bereken de totale projectkost die voor jou haalbaar is. Ga na hoe de verschillende leenformules met vaste en variabele intrestvoeten invloed kunnen uitoefenen op jouw te ontlenen bedrag.
+        <br />
+        <br />
+        <a href="http://www.immotheker.be/Immotheker3/Modules/Default.aspx?WPID=242&L=N&Partner=EA" target="_blank" style="margin: 0px; padding: 0px;">Bereken je woonlening (via Immotheker.be)</a>
+        <br />
+        Bereken je maandelijkse aflossing aan de hand van de huidige gemiddelde rentestanden voor woonleningen in België. De rentes worden dagelijks bijgewerkt.
+        <br />
+        <br />
+        <a href="http://www.immotheker.be/Immotheker3/Modules/Default.aspx?WPID=243&L=N&Partner=EA" target="_blank" style="margin: 0px; padding: 0px;">Bereken de aanschafkosten (via Immotheker.be)</a>
+        <br />
+        Bereken de aanschafkosten die gepaard gaan met de aankoop van een bestaand pand of een nieuwbouw.
+        <br />
+        <br />
+        <a href="http://www.immotheker.be/Immotheker3/Modules/Default.aspx?WPID=244&L=N&Partner=EA" target="_blank" style="margin: 0px; padding: 0px;">De rentebarometer (via Immotheker.be)</a>
+        <br />
+        Bekijk het actueel overzicht van de rentetarieven voor woonleningen.
+        <br />
+        <br />*@
+        <a href="http://www.notaris.be/rekenmodule_aankoop.php" target="_blank" style="margin: 0px; padding: 0px;">Berekening van de aktekosten voor aankoop (via notaris.be)</a>
+        <br />
+        <br />
+        <a href="http://www.notaris.be/rekenmodule_kredieten.php" target="_blank" style="margin: 0px; padding: 0px;">Berekening van de aktekosten voor standaardkredieten (via notaris.be)</a>
+        <br />
+        <br />
+        <a href="http://www.notaris.be/rekenmodule_schenkingen.php" target="_blank" style="margin: 0px; padding: 0px;">Berekening van de aktekosten voor schenkingen (via notaris.be)</a>
+    </p>
+</fieldset>

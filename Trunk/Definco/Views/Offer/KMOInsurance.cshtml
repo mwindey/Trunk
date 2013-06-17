@@ -1,0 +1,186 @@
+﻿@model Definco.Models.Offer.KMOInsurance
+
+@{
+    ViewBag.Title = "KMO verzekering aanvragen";
+}
+
+<h2>KMO verzekering aanvragen</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <h3>Gegevens aanvrager</h3>
+        <div class="form-section person-data">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FirstName, "Uw voornaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LastName, "Achternaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Function, "Uw functie")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Function)
+                @Html.ValidationMessageFor(model => model.Function)
+            </div>
+        </div>
+        <div class="form-section company-data">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyName, "Bedrijfsnaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyName)
+                @Html.ValidationMessageFor(model => model.CompanyName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyNumber, "Ondernemingsnummer")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyNumber)
+                @Html.ValidationMessageFor(model => model.CompanyNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyAddress, "Adres")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyAddress)
+                @Html.ValidationMessageFor(model => model.CompanyAddress)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyHomeNumber, "Huisnummer")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyHomeNumber)
+                @Html.ValidationMessageFor(model => model.CompanyHomeNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyZipCode, "Postcode")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyZipCode)
+                @Html.ValidationMessageFor(model => model.CompanyZipCode)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyCity, "Gemeente/stad")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyCity)
+                @Html.ValidationMessageFor(model => model.CompanyCity)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyEmail, "Email")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyEmail)
+                @Html.ValidationMessageFor(model => model.CompanyEmail)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyTelephone, "Telefoonnummer")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyTelephone)
+                @Html.ValidationMessageFor(model => model.CompanyTelephone)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyActivities, "Bedrijfsactiviteiten")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyActivities)
+                @Html.ValidationMessageFor(model => model.CompanyActivities)
+            </div>
+        </div>
+        <h3>Gewenste offertes</h3>
+        <div class="form-section requested-offers">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.AccidentsAtWork, "Arbeidsongevallen")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.AccidentsAtWork)
+                @Html.ValidationMessageFor(model => model.AccidentsAtWork)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CL_Operation_Demise, "Burgelijke aansprakelijkheid uitbating / naleving")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CL_Operation_Demise)
+                @Html.ValidationMessageFor(model => model.CL_Operation_Demise)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompanyVehicles, "Bedrijfsvoertuigen")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompanyVehicles)
+                @Html.ValidationMessageFor(model => model.CompanyVehicles)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Hospitalization, "Hospitalisatie")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Hospitalization)
+                @Html.ValidationMessageFor(model => model.Hospitalization)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GroupInsurances, "Groepsverzekeringen")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GroupInsurances)
+                @Html.ValidationMessageFor(model => model.GroupInsurances)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.GuaranteedIncome, "Gewaarborgd inkomen")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GuaranteedIncome)
+                @Html.ValidationMessageFor(model => model.GuaranteedIncome)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CreditInsurance, "Kredietverzekeringen")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CreditInsurance)
+                @Html.ValidationMessageFor(model => model.CreditInsurance)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Other, "Andere")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Other)
+                @Html.ValidationMessageFor(model => model.Other)
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Verstuur" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

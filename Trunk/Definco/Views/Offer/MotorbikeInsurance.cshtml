@@ -1,0 +1,224 @@
+﻿@model Definco.Models.Offer.MotorbikeInsuranceOffer
+
+@{
+    ViewBag.Title = "Motoverzekering aanvragen";
+}
+
+<h2>Motoverzekering aanvragen</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <h3>Uw gegevens</h3>
+        <div class="person-data form-section">
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverFirstName, "Voornaam bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverFirstName)
+                    @Html.ValidationMessageFor(model => model.DriverFirstName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverName, "Achternaam bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverName)
+                    @Html.ValidationMessageFor(model => model.DriverName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverAddress, "Straat bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverAddress)
+                    @Html.ValidationMessageFor(model => model.DriverAddress)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverHomeNumber, "Huisnummer bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.DriverHomeNumber)
+                    @Html.ValidationMessageFor(model => model.DriverHomeNumber)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverZipCode, "Postcode bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.DriverZipCode)
+                    @Html.ValidationMessageFor(model => model.DriverZipCode)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverCity, "Stad/Gemeente bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverCity)
+                    @Html.ValidationMessageFor(model => model.DriverCity)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverEmail, "Email")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverEmail)
+                    @Html.ValidationMessageFor(model => model.DriverEmail)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverTelephone, "Telefoon")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverTelephone)
+                    @Html.ValidationMessageFor(model => model.DriverTelephone)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverBirthDate, "Geboortedatum bestuurder")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverBirthDate)
+                    @Html.ValidationMessageFor(model => model.DriverBirthDate)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Sex, "Geslacht")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.Sex, Definco.Models.SelectLists.SexList.Items, "Kies uw geslacht", null)
+                    @Html.ValidationMessageFor(model => model.Sex)
+                </div>
+        </div>
+        <h3>Gegevens voertuig</h3>
+        <div class="vehicle-data form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleMake, "Merk")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleMake)
+                @Html.ValidationMessageFor(model => model.VehicleMake)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleModel, "Model")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleModel)
+                @Html.ValidationMessageFor(model => model.VehicleModel)
+            </div>
+
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.VehicleCylinderContent, "Cylinderinhoud in CC")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.VehicleCylinderContent)
+                    @Html.ValidationMessageFor(model => model.VehicleCylinderContent)
+                </div>
+
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.VehiclePower, "Vermogen in KW")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.VehiclePower)
+                    @Html.ValidationMessageFor(model => model.VehiclePower)
+                </div>
+
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.VehicleFirstUse, "Datum eerste ingebruikname")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.VehicleFirstUse)
+                    @Html.ValidationMessageFor(model => model.VehicleFirstUse)
+                </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StartDate, "Gewenste aanvangsdatum")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StartDate)
+                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+        </div>
+        <h3>Gewenste waarborgen</h3>
+        <div class="required-guarantees form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompulsoryCivilLiabilityCoverage, "Verplichte dekking burgelijke aansprakelijkheid")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompulsoryCivilLiabilityCoverage)
+                @Html.ValidationMessageFor(model => model.CompulsoryCivilLiabilityCoverage)
+            </div>
+
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.LegalAssistance, "Rechtsbijstand")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.LegalAssistance, Definco.Models.SelectLists.LegalAssistanceList.Items)
+                @Html.ValidationMessageFor(model => model.LegalAssistance)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.BasicAccidentInsurance, "Basis ongevallenverzekering")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.BasicAccidentInsurance)
+                @Html.ValidationMessageFor(model => model.BasicAccidentInsurance)
+            </div>
+        </div>
+        <h3>Bijkomende informatie</h3>
+        <div class="additional-information form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleAlreadyInsured, "Voertuig reeds verzekerd")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleAlreadyInsured)
+                @Html.ValidationMessageFor(model => model.VehicleAlreadyInsured)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.InsuranceCompany, "Verzekeringsmaatschappij")
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.InsuranceCompany, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.InsuranceCompany)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PolisNumber, "Polisnummer")
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.PolisNumber, new { disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.PolisNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MotorbikeCarCombination, "Verzekering in combinatie met autoverzekering")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MotorbikeCarCombination)
+                @Html.ValidationMessageFor(model => model.MotorbikeCarCombination)
+            </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Versturen" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('#VehicleAlreadyInsured').change(function (){
+            if ($(this).is(':checked')) {
+                $('#InsuranceCompany').removeAttr('disabled');
+                $('#PolisNumber').removeAttr('disabled');
+            } else {
+                $('#InsuranceCompany').attr('disabled', 'disabled');
+                $('#PolisNumber').attr('disabled', 'disabled');
+            }
+        });
+    </script>
+}

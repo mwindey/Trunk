@@ -1,0 +1,188 @@
+﻿@model Definco.Models.Offer.HospitalizationInsurance
+
+@{
+    ViewBag.Title = "Hospitalisatieverzekering aanvragen";
+}
+
+<h2>Hospitalisatieverzekering aanvragen</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <h3>Gegevens aanvrager</h3>
+        <div class="requester-data form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FirstName, "Voornaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LastName, "Achternaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address, "Straat")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.HouseNumber, "Huisnummer")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HouseNumber)
+                @Html.ValidationMessageFor(model => model.HouseNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ZipCode, "Postcode")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ZipCode)
+                @Html.ValidationMessageFor(model => model.ZipCode)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.City, "Stad/Gemeente")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Email, "Email")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Telephone, "Telefoon")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Telephone)
+                @Html.ValidationMessageFor(model => model.Telephone)
+            </div>
+        </div>
+        <h3>Verzekerde personen</h3>
+        <div class="noPersons-selector">
+            @Html.Label("noPersons", "Aantal personen", null)
+            @Html.DropDownList("noPersons", Enumerable.Range(1, 10).Select(i => new SelectListItem() { Text = i.ToString(), Value = i.ToString() }))
+        </div>
+        <div id="persons-form" class="to-insure-persons form-section">
+            <div id="person_1" class="form-section person-form">
+                <h4>Persoon 1</h4>
+                @Html.Label("Persons[0].FirstName", "Voornaam" ,null)
+                @Html.TextBox("Persons[0].FirstName")
+                @Html.Label("Persons[0].LastName", "Achternaam" ,null)
+                @Html.TextBox("Persons[0].LastName")
+                @Html.Label("Persons[0].BirthDay", "Geboortedatum" ,null)
+                @Html.TextBox("Persons[0].BirthDay", "", new { type="datetime" })
+                @Html.Label("Persons[0].Profession", "Sociaal statuut", null)
+                @Html.DropDownList("Persons[0].Profession", Definco.Models.SelectLists.ProfessionList.Items, "Kies", null)
+                @Html.Label("Persons[0].MaritalStatus", "Burgelijke staat", null)
+                @Html.DropDownList("Persons[0].MaritalStatus", Definco.Models.SelectLists.MaritalStatusList.Items, "Kies", null)
+                @Html.Label("Persons[0].Sex", "Geslacht" ,null)
+                @Html.DropDownList("Persons[0].Sex", Definco.Models.SelectLists.SexList.Items, "Kies", null)
+                @Html.Label("Persons[0].SmallRisksInsuredByHealthInsurance", "Kleine risicos verzekerd bij uw ziekenfonds?" ,null)
+                @Html.CheckBox("Persons[0].SmallRisksInsuredByHealthInsurance")
+            </div>
+        </div>
+        <h3 style="clear:left;">Gewenste waarborgen</h3>
+        <div class="required-guarantees form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StartDate, "Aanvangsdatum")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StartDate)
+                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.DesiredExemption, "Gewenste vrijstelling")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.DesiredExemption)
+                @Html.ValidationMessageFor(model => model.DesiredExemption)
+                Vul hier bedrag van de gewenste jaarlijkse vrijstelling, hoe hoger de vrijstelling, hoe goedkoper de premie
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Versturen" />
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).on('change', '#noPersons', function (event) {
+
+            var noPersons = $(this).val();
+
+            $('#persons-form').empty();
+
+            for (var counter = 0; counter < noPersons; counter++) {
+
+                var html = '<div id="persons-form" class="to-insure-persons form-section">'
+                   + '<div id="person_1" class="form-section person-form">'
+                   +    '<h4>Persoon 1</h4>'
+                   +     '<label for="Persons_0__FirstName">Voornaam</label>'
+                   +     '<input id="Persons_0__FirstName" name="Persons[0].FirstName" type="text" value="">'
+                   +     '<label for="Persons_0__LastName">Achternaam</label>'
+                   +     '<input id="Persons_0__LastName" name="Persons[0].LastName" type="text" value="">'
+                   +     '<label for="Persons_0__BirthDay">Geboortedatum</label>'
+                   +     '<input id="Persons_0__BirthDay" name="Persons[0].BirthDay" type="datetime" value="">'
+                   +     '<label for="Persons_0__Profession">Sociaal statuut</label>'
+                   +     '<select id="Persons_0__Profession" name="Persons[0].Profession"><option value="">Kies</option>'
+                   +         '<option value="Unemployed">Werkloos</option>'
+                   +         '<option value="Student">Student</option>'
+                   +         '<option value="Pensioned">Gepensioneerd</option>'
+                   +         '<option value="Worker">Arbeider</option>'
+                   +         '<option value="Clerk">Bediende</option>'
+                   +         '<option value="SelfEmployed">Zelfstandig</option>'
+                   +         '<option value="CivilServant">Ambtenaar</option>'
+                   +         '<option value="Teacher">Leerkracht</option>'
+                   +     '</select>'
+                   +     '<label for="Persons_0__MaritalStatus">Burgelijke staat</label>'
+                   +     '<select id="Persons_0__MaritalStatus" name="Persons[0].MaritalStatus"><option value="">Kies</option>'
+                   +         '<option value="Single">Alleenstaand</option>'
+                   +         '<option value="Married">Getrouwd</option>'
+                   +         '<option value="Widower">Weduwnaar</option>'
+                   +         '<option value="Divorced">Gescheiden</option>'
+                   +         '<option value="Seperated">Feitelijk gescheiden</option>'
+                   +     '</select>'
+                   +     '<label for="Persons_0__Sex">Geslacht</label>'
+                   +     '<select id="Persons_0__Sex" name="Persons[0].Sex"><option value="">Kies</option>'
+                   +         '<option value="Man">Man</option>'
+                   +         '<option value="Woman">Vrouw</option>'
+                   +     '</select>'
+                   +     '<label for="Persons_0__SmallRisksInsuredByHealthInsurance">Kleine risicos verzekerd bij uw ziekenfonds?</label>'
+                   +     '<input id="Persons_0__SmallRisksInsuredByHealthInsurance" name="Persons[0].SmallRisksInsuredByHealthInsurance" type="checkbox" value="true"><input name="Persons[0].SmallRisksInsuredByHealthInsurance" type="hidden" value="false">'
+                   + '</div>'
+                + '</div>'
+
+                html = html.replace(new RegExp('#PERSONNUMBER#', 'g'), counter + 1);
+                html = html.replace(new RegExp('#PERSONINDEX#', 'g'), counter);
+
+                $('#persons-form').append(html);
+            }
+
+            event.preventDefault();
+        });
+    </script>
+}

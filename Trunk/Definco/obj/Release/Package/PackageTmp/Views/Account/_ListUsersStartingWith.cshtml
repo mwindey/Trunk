@@ -1,0 +1,21 @@
+﻿@using Definco
+@using Definco.Models
+@model IQueryable<UserProfile>
+<p>
+    @{
+        if ((Enums.SecurityLevels)((UserProfile)Context.Items["LoggedInUser"]).SecurityLevel != Enums.SecurityLevels.User)
+        {
+            @Html.Partial("_UserSelector")
+
+        }
+    }
+</p>
+@{
+    if (!Model.Any()) { 
+        @:No users found !
+    }
+    foreach (UserProfile u in Model)
+    {
+    @Html.ActionLink(string.Format("{0}, {1}", @u.LastName, @u.FirstName), "ManageByID", "Account", new { userId = u.UserId }, null)<br />
+    }
+}

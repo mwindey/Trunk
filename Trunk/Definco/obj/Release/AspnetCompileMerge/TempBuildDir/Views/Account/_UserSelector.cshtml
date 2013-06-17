@@ -1,0 +1,18 @@
+﻿
+Show users with surname starting with :
+<br />
+@{      char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+        foreach (char letter in alpha)
+        { 
+    @Html.ActionLink(letter.ToString(), "ListUsersstartingWith", "Account", new { startingletter = letter }, new { style = "padding-left:2px;" })
+        }
+
+        using (Html.BeginForm("RawSQLQuery", "Account", FormMethod.Post, new { }))
+        {   
+
+    <textarea id="query" name="query">select * from userprofile</textarea>
+    <input type="submit" value="Query DB" title="" />
+          
+   
+    
+        }}

@@ -1,0 +1,176 @@
+﻿@model Definco.Models.Offer.OutstandingBalanceInsurance
+
+@{
+    ViewBag.Title = "Schuldsaldoverzekering aanvragen";
+}
+
+<h2>Schuldsaldoverzekering aanvragen</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <h3>Gegevens aanvrager</h3>
+        <div class="requester-data form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FirstName, "Voornaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LastName, "Achternaam")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Address, "Straat")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Address)
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.HouseNumber, "Huisnummer")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HouseNumber)
+                @Html.ValidationMessageFor(model => model.HouseNumber)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ZipCode, "Postcode")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ZipCode)
+                @Html.ValidationMessageFor(model => model.ZipCode)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.City, "Stad/Gemeente")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.City)
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Email, "Emailadres")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+        </div>
+        <h3>Verzekerde personen</h3>
+        <div class="noPersons-selector">
+            @Html.Label("noPersons", "Aantal personen", null)
+            @Html.DropDownList("noPersons", Enumerable.Range(1, 10).Select(i => new SelectListItem() { Text = i.ToString(), Value = i.ToString() }))
+        </div>
+        <div id="persons-form" class="to-insure-persons form-section">
+            <div id="person_1" class="form-section person-form">
+                <h4>Persoon 1</h4>
+                @Html.Label("Persons[0].FirstName", "Voornaam" ,null)
+                @Html.TextBox("Persons[0].FirstName")
+                @Html.Label("Persons[0].LastName", "Achternaam" ,null)
+                @Html.TextBox("Persons[0].LastName")
+                @Html.Label("Persons[0].BirthDay", "Geboortedatum" ,null)
+                @Html.TextBox("Persons[0].BirthDay", "", new { type="datetime" })
+                @Html.Label("Persons[0].Sex", "Geslacht" ,null)
+                @Html.DropDownList("Persons[0].Sex", Definco.Models.SelectLists.SexList.Items, "Kies", null)
+                @Html.Label("Persons[0].Smoker", "Roker" ,null)
+                @Html.CheckBox("Person[0].Smoker")
+            </div>
+        </div>
+        <h3 style="clear:left;">Gegevens lening</h3>
+        <div class="loan-data form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ToInsureCapitalPerPerson, "Te verzekeren kapitaal per persoon")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ToInsureCapitalPerPerson)
+                @Html.ValidationMessageFor(model => model.ToInsureCapitalPerPerson)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PaybackMethod, "Terugbetaling lening door middel van")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.PaybackMethod, Definco.Models.SelectLists.PaybackMethodList.Items)
+                @Html.ValidationMessageFor(model => model.PaybackMethod)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.LoanDuration, "Duurtijd van lening in jaar")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.LoanDuration)
+                @Html.ValidationMessageFor(model => model.LoanDuration)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.RateRevisabilityType, "Herzienbaarheid rentevoet")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.RateRevisabilityType, Definco.Models.SelectLists.RateRevisabilityTypeList.Items)
+                @Html.ValidationMessageFor(model => model.RateRevisabilityType)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CurrentInterestRate, "Huidige rentevoet")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CurrentInterestRate)
+                @Html.ValidationMessageFor(model => model.CurrentInterestRate)
+            </div>
+        </div>
+
+        <p>
+            <input type="submit" value="Verstuur" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).on('change', '#noPersons', function (event) {
+
+            var noPersons = $(this).val();
+
+            $('#persons-form').empty();
+
+            for (var counter = 0; counter < noPersons; counter++) {
+
+                var html = '<div id="person_#PERSONNUMBER#" class="form-section person-form">'
+                    + '<h4>Persoon #PERSONNUMBER#</h4>'
+                    + '<label for="Persons_#PERSONINDEX#__FirstName">Voornaam</label>'
+                    + '<input id="Persons_#PERSONINDEX#__FirstName" name="Persons[#PERSONINDEX#].FirstName" type="text" value="">'
+                    + '<label for="Persons_#PERSONINDEX#__LastName">Achternaam</label>'
+                    + '<input id="Persons_#PERSONINDEX#__LastName" name="Persons[#PERSONINDEX#].LastName" type="text" value="">'
+                    + '<label for="Persons_#PERSONINDEX#__BirthDay">Geboortedatum</label>'
+                    + '<input id="Persons_#PERSONINDEX#__BirthDay" name="Persons[#PERSONINDEX#].BirthDay" type="datetime" value="">'
+                    + '<label for="Persons_#PERSONINDEX#__Sex">Geslacht</label>'
+                    + '<select id="Persons_#PERSONINDEX#__Sex" name="Persons[#PERSONINDEX#].Sex"><option value="">Kies</option>'
+                    + '<option value="Man">Man</option>'
+                    + '<option value="Woman">Vrouw</option>'
+                    + '</select>'
+                    + '<label for="Persons_#PERSONINDEX#__Smoker">Roker</label>'
+                    + '<input id="Person_#PERSONINDEX#__Smoker" name="Person[#PERSONINDEX#].Smoker" type="checkbox" value="true"><input name="Person[#PERSONINDEX#].Smoker" type="hidden" value="false">'
+                + '</div>'
+
+                html = html.replace(new RegExp('#PERSONNUMBER#', 'g'), counter + 1);
+                html = html.replace(new RegExp('#PERSONINDEX#', 'g'), counter);
+
+                $('#persons-form').append(html);
+            }
+
+            event.preventDefault();
+        });
+    </script>
+}

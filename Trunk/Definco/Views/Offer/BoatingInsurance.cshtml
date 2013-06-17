@@ -1,0 +1,215 @@
+﻿@model Definco.Models.Offer.BoatingInsurance
+
+@{
+    ViewBag.Title = "Pleziervaartverzekering aanvragen";
+}
+
+<h2>Pleziervaartverzekering aanvragen</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <h3>Uw gegevens</h3>
+        <div class="person-data form-section">
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverFirstName, "Voornaam")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverFirstName)
+                    @Html.ValidationMessageFor(model => model.DriverFirstName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverName, "Achternaam")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverName)
+                    @Html.ValidationMessageFor(model => model.DriverName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverAddress, "Straat")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverAddress)
+                    @Html.ValidationMessageFor(model => model.DriverAddress)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverHomeNumber, "Huisnummer")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.DriverHomeNumber)
+                    @Html.ValidationMessageFor(model => model.DriverHomeNumber)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverZipCode, "Postcode")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.DriverZipCode)
+                    @Html.ValidationMessageFor(model => model.DriverZipCode)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverCity, "Stad/Gemeente")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverCity)
+                    @Html.ValidationMessageFor(model => model.DriverCity)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverEmail, "Email")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverEmail)
+                    @Html.ValidationMessageFor(model => model.DriverEmail)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverTelephone, "Telefoon")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverTelephone)
+                    @Html.ValidationMessageFor(model => model.DriverTelephone)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.DriverBirthDate, "Geboortedatum")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.DriverBirthDate)
+                    @Html.ValidationMessageFor(model => model.DriverBirthDate)
+                </div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Sex, "Geslacht")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.Sex, Definco.Models.SelectLists.SexList.Items, "Kies uw geslacht", null)
+                    @Html.ValidationMessageFor(model => model.Sex)
+                </div>
+        </div>
+        <h3>Gegevens voertuig</h3>
+        <div class="vehicle-data form-section">
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleMake, "Merk")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleMake)
+                @Html.ValidationMessageFor(model => model.VehicleMake)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleModel, "Model")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleModel)
+                @Html.ValidationMessageFor(model => model.VehicleModel)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleFirstUse, "Datum eerste ingebruikname")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleFirstUse)
+                @Html.ValidationMessageFor(model => model.VehicleFirstUse)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehiclePower, "Vermogen in PK")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehiclePower)
+                @Html.ValidationMessageFor(model => model.VehiclePower)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.VehicleTotalLength, "Totale lengte")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.VehicleTotalLength)
+                @Html.ValidationMessageFor(model => model.VehicleTotalLength)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ToCoverRegion, "Te dekken regio")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ToCoverRegion)
+                @Html.ValidationMessageFor(model => model.ToCoverRegion)
+            </div>
+            <div>
+                Vermeld hier alle zeegebieden (landen) waar u de dekking wenst
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ToInsureValue, "Te verzekeren waarde vaartuig")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ToInsureValue)
+                @Html.ValidationMessageFor(model => model.ToInsureValue)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ToInsureContents, "Te verzekeren waarde inboedel")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ToInsureContents)
+                @Html.ValidationMessageFor(model => model.ToInsureContents)
+            </div>
+        </div>
+        <h3>Gewenste waarborgen</h3>
+        <div class="required-guarantees form-section">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.CompulsoryCivilLiabilityCoverage, "Verplichte burgelijke aansprakelijkheid")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.CompulsoryCivilLiabilityCoverage)
+                @Html.ValidationMessageFor(model => model.CompulsoryCivilLiabilityCoverage)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.StorageCosts, "Bergingskosten")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.StorageCosts)
+                @Html.ValidationMessageFor(model => model.StorageCosts)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Hull, "Casco")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Hull)
+                @Html.ValidationMessageFor(model => model.Hull)
+            </div>
+            
+            <div class="editor-label">
+                    @Html.LabelFor(model => model.LegalAssistance, "Rechtsbijstand")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.LegalAssistance, Definco.Models.SelectLists.LegalAssistanceList.Items)
+                @Html.ValidationMessageFor(model => model.LegalAssistance)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.BasicAccidentInsurance, "Ongevallenverzekering opvarenden")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.BasicAccidentInsurance)
+                @Html.ValidationMessageFor(model => model.BasicAccidentInsurance)
+            </div>
+        </div>
+        <p>
+            <input type="submit" value="Verstuur" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

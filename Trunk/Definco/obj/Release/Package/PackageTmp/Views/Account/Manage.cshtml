@@ -1,0 +1,264 @@
+﻿@using Definco
+@using Definco.Models
+@model Definco.Models.ManageModel
+@{
+    ViewBag.Title = "Manage Account";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+<p>
+    @{
+        if ((Enums.SecurityLevels)((UserProfile)Context.Items["LoggedInUser"]).SecurityLevel != Enums.SecurityLevels.User)
+        {
+            @Html.Partial("_UserSelector")
+
+        }
+    }
+</p>
+<p class="message-success">@ViewBag.StatusMessage</p>
+
+@using (Html.BeginForm("Manage", "Account"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    @Html.HiddenFor(m => m.UserId)
+    <fieldset>
+        <legend>Manage Account</legend>
+        <ol style="list-style-type: none;">
+            @if ((Enums.SecurityLevels)((UserProfile)Context.Items["LoggedInUser"]).SecurityLevel == Enums.SecurityLevels.SuperUser)
+            {
+                <li>
+                    @Html.LabelFor(m => m.SecurityLevel)
+                    <select name="SecurityLevel" id="SecurityLevel">
+                        <option value="1" @((Model.SecurityLevel == 1) ? "selected" : null)>Super user</option>
+                        <option value="2" @((Model.SecurityLevel == 2) ? "selected" : null)>Account manager</option>
+                        <option value="3" @(Model.SecurityLevel == 3 ? "selected" : null)>User</option>
+                    </select>
+                </li>
+            }
+            else
+            {
+                <li>
+                    @Html.LabelFor(m => m.SecurityLevel)
+                    @(((Enums.SecurityLevels)Model.SecurityLevel).ToString())
+                </li>
+            }
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.DisplayFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.LastName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Address)
+                @Html.TextBoxFor(m => m.Address)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Cellphone)
+                @Html.TextBoxFor(m => m.Cellphone)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.CreatedDate)
+                @Html.DisplayFor(m => m.CreatedDate)
+            </li>
+        </ol>
+        <input type="submit" value="Save changes" />
+    </fieldset>
+}
+<form id="fileupload" action="/Upload/UploadHandler.ashx" method="POST" enctype="multipart/form-data">
+    @Html.Hidden("uid", Model.UserId)
+    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+    <div class="row fileupload-buttonbar">
+        <div class="span7">
+            <!-- The fileinput-button span is used to style the file input field as button -->
+            <span class="btn btn-success fileinput-button">
+                <i class="icon-plus icon-white"></i>
+                <span>Add files...</span>
+                <input type="file" name="files[]" multiple>
+            </span>
+            <button type="submit" class="btn btn-primary start">
+                <i class="icon-upload icon-white"></i>
+                <span>Start upload</span>
+            </button>
+            <button type="reset" class="btn btn-warning cancel">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>Cancel upload</span>
+            </button>
+            <button type="button" class="btn btn-danger delete">
+                <i class="icon-trash icon-white"></i>
+                <span>Delete</span>
+            </button>
+            <input type="checkbox" class="toggle">
+        </div>
+        <div class="span5">
+            <!-- The global progress bar -->
+            <div class="progress progress-success progress-striped active fade">
+                <div class="bar" style="width: 0%;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- The loading indicator is shown during image processing -->
+    <div class="fileupload-loading"></div>
+    <br>
+    <!-- The table listing the files available for upload/download -->
+    <table class="table table-striped">
+        <tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+    </table>
+</form>
+
+<!-- modal-gallery is the modal dialog used for the image gallery -->
+<div id="modal-gallery" class="modal modal-gallery hide fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body">
+        <div class="modal-image"></div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-primary modal-next">
+            <span>Next</span>
+            <i class="icon-arrow-right icon-white"></i>
+        </a>
+        <a class="btn btn-info modal-prev">
+            <i class="icon-arrow-left icon-white"></i>
+            <span>Previous</span>
+        </a>
+        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
+            <i class="icon-play icon-white"></i>
+            <span>Slideshow</span>
+        </a>
+        <a class="btn modal-download" target="_blank">
+            <i class="icon-download"></i>
+            <span>Download</span>
+        </a>
+    </div>
+</div>
+
+
+@*@if (ViewBag.HasLocalPassword)
+{
+    @Html.Partial("_ChangePasswordPartial")
+}
+else
+{ 
+    @Html.Partial("_SetPasswordPartial")
+}
+
+<section id="externalLogins">
+    @Html.Action("RemoveExternalLogins")
+
+    <h3>Add an external login</h3>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>*@
+
+@section Scripts {
+
+
+    <!-- The template to display files available for upload -->
+    <script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+       @* <td class="preview"><span class="fade"></span></td>*@
+        <td class="name"><span>{%=file.name%}</span></td>
+        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+        {% if (file.error) { %}
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else if (o.files.valid && !i) { %}
+            <td>
+                <div class="progress progress-success progress-striped active"><div class="bar" style="width:0%;"></div></div>
+            </td>
+            <td class="start">{% if (!o.options.autoUpload) { %}
+                <button class="btn btn-primary">
+                    <i class="icon-upload icon-white"></i>
+                    <span>{%=locale.fileupload.start%}</span>
+                </button>
+            {% } %}</td>
+        {% } else { %}
+            <td colspan="2"></td>
+        {% } %}
+        <td class="cancel">{% if (!i) { %}
+            <button class="btn btn-warning">
+                <i class="icon-ban-circle icon-white"></i>
+                <span>{%=locale.fileupload.cancel%}</span>
+            </button>
+        {% } %}</td>
+    </tr>
+{% } %}
+    </script>
+    <!-- The template to display files available for download -->
+    <script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+        {% if (file.error) { %}
+            <td></td>
+            <td class="name"><span>{%=file.name%}</span></td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+        {% } else { %}
+          @*  <td class="preview">{% if (file.thumbnail_url) { %}
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+            {% } %}</td>*@
+            <td class="name">
+                <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+            </td>
+            <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+            <td colspan="2"></td>
+        {% } %}
+        <td class="delete">
+            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                <i class="icon-trash icon-white"></i>
+                <span>{%=locale.fileupload.destroy%}</span>
+            </button>
+            <input type="checkbox" name="delete" value="1">
+        </td>
+    </tr>
+{% } %}
+        
+       
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            var userId = @Html.Raw(Json.Encode(Model.UserId));
+
+            //console.log($('#fileupload').fileupload('option', 'url'));
+            // Load existing files:
+            $('#fileupload').addClass('fileupload-processing');
+            $.ajax({
+                // Uncomment the following to send cross-domain cookies:
+                //xhrFields: {withCredentials: true},
+                url: "/Upload/UploadHandler.ashx?uid=" + userId,
+                dataType: 'json',
+                context: $('#fileupload')[0]
+            }).always(function (result) {
+                $(this).removeClass('fileupload-processing');
+            }).done(function (result) {
+
+                $(this).fileupload('option', 'done')
+                    .call(this, null, { result: result });
+            });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+}
